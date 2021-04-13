@@ -123,6 +123,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 /* harmony import */ var _services_s_clientes_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../services/s-clientes.service */ "ccX7");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "PSD3");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "tyNb");
+
+
 
 
 
@@ -130,10 +135,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var NTramiteComponent = /** @class */ (function () {
-    function NTramiteComponent(sClientes, fBuilder, sTramites) {
+    function NTramiteComponent(sClientes, fBuilder, sTramites, router) {
         this.sClientes = sClientes;
         this.fBuilder = fBuilder;
         this.sTramites = sTramites;
+        this.router = router;
         this.step = 0;
         this.buildForm();
     }
@@ -159,13 +165,21 @@ var NTramiteComponent = /** @class */ (function () {
         });
     };
     NTramiteComponent.prototype.saveForm = function (event) {
+        var _this = this;
         event.preventDefault();
         var data = this.formT.value;
         data.cliente = this.selectecCliente._id;
         console.log(data);
         this.sTramites.nuevoTramite(data)
             .subscribe(function (res) {
-            console.log(res);
+            sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a.fire({
+                icon: 'success',
+                title: 'Se ha guardado el cliente satisfactoriamente.',
+                showConfirmButton: false,
+                timer: 1500
+            }).finally(function () {
+                _this.router.navigateByUrl('listaTramites');
+            });
         }, function (err) { return console.log(err); });
     };
     NTramiteComponent.prototype.getAllClientes = function () {
@@ -178,7 +192,8 @@ var NTramiteComponent = /** @class */ (function () {
     NTramiteComponent.ctorParameters = function () { return [
         { type: _services_s_clientes_service__WEBPACK_IMPORTED_MODULE_4__["SClientesService"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
-        { type: _services_s_tramites_service__WEBPACK_IMPORTED_MODULE_2__["STramitesService"] }
+        { type: _services_s_tramites_service__WEBPACK_IMPORTED_MODULE_2__["STramitesService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] }
     ]; };
     NTramiteComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
@@ -187,7 +202,8 @@ var NTramiteComponent = /** @class */ (function () {
         }),
         Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_services_s_clientes_service__WEBPACK_IMPORTED_MODULE_4__["SClientesService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"],
-            _services_s_tramites_service__WEBPACK_IMPORTED_MODULE_2__["STramitesService"]])
+            _services_s_tramites_service__WEBPACK_IMPORTED_MODULE_2__["STramitesService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
     ], NTramiteComponent);
     return NTramiteComponent;
 }());

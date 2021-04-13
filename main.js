@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Usuario1\Downloads\genefa-front-main\genefa-front-main\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! /home/lp-vickdlaluzz/Documentos/Proyects/genefa-front/src/main.ts */"zUnb");
 
 
 /***/ }),
@@ -297,6 +297,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_s_municipios_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../services/s-municipios.service */ "raJY");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sweetalert2 */ "PSD3");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "tyNb");
+
+
 
 
 
@@ -305,10 +310,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ClienteFormComponent = /** @class */ (function () {
-    function ClienteFormComponent(sMunicipios, formB, sClientes) {
+    function ClienteFormComponent(sMunicipios, formB, sClientes, router) {
         this.sMunicipios = sMunicipios;
         this.formB = formB;
         this.sClientes = sClientes;
+        this.router = router;
         this.getEstados();
         this.buildForm();
     }
@@ -356,12 +362,20 @@ var ClienteFormComponent = /** @class */ (function () {
         });
     };
     ClienteFormComponent.prototype.saveForm = function (event) {
+        var _this = this;
         event.preventDefault();
         if (this.form.valid) {
             console.warn('el formulario es valido');
             this.sClientes.saveCliente(this.form.value)
                 .subscribe(function (res) {
-                console.log(res);
+                sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.fire({
+                    icon: 'success',
+                    title: 'Se ha guardado el cliente satisfactoriamente.',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).finally(function () {
+                    _this.router.navigateByUrl('listaClientes');
+                });
             }, function (err) { return console.error(err); });
         }
         else {
@@ -372,7 +386,8 @@ var ClienteFormComponent = /** @class */ (function () {
     ClienteFormComponent.ctorParameters = function () { return [
         { type: _services_s_municipios_service__WEBPACK_IMPORTED_MODULE_4__["SMunicipiosService"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"] },
-        { type: _services_s_clientes_service__WEBPACK_IMPORTED_MODULE_3__["SClientesService"] }
+        { type: _services_s_clientes_service__WEBPACK_IMPORTED_MODULE_3__["SClientesService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"] }
     ]; };
     ClienteFormComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
@@ -382,7 +397,8 @@ var ClienteFormComponent = /** @class */ (function () {
         }),
         Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_services_s_municipios_service__WEBPACK_IMPORTED_MODULE_4__["SMunicipiosService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"],
-            _services_s_clientes_service__WEBPACK_IMPORTED_MODULE_3__["SClientesService"]])
+            _services_s_clientes_service__WEBPACK_IMPORTED_MODULE_3__["SClientesService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]])
     ], ClienteFormComponent);
     return ClienteFormComponent;
 }());
@@ -1099,12 +1115,13 @@ __webpack_require__.r(__webpack_exports__);
 var SMunicipiosService = /** @class */ (function () {
     function SMunicipiosService(http) {
         this.http = http;
+        this.TOKEN = '112a9ef1-9f7e-4973-9653-c0a94f05a016';
     }
     SMunicipiosService.prototype.getEstados = function () {
-        return this.http.get('https://api-sepomex.hckdrk.mx/query/get_estados');
+        return this.http.get("https://api-sepomex.hckdrk.mx/query/get_estados?token=" + this.TOKEN);
     };
     SMunicipiosService.prototype.getMunicipios = function (estado) {
-        return this.http.get("https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/" + estado);
+        return this.http.get("https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/" + estado + "?token=" + this.TOKEN);
     };
     SMunicipiosService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }

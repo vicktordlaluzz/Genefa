@@ -4095,8 +4095,8 @@ module.exports = getBuiltIn('document', 'documentElement');
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Usuario1\Downloads\genefa-front-main\genefa-front-main\src\polyfills.ts */"hN/g");
-module.exports = __webpack_require__(/*! C:\Users\Usuario1\Downloads\genefa-front-main\genefa-front-main\node_modules\@angular-devkit\build-angular\src\webpack\jit-polyfills.js */"rZy+");
+__webpack_require__(/*! /home/lp-vickdlaluzz/Documentos/Proyects/genefa-front/src/polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! /home/lp-vickdlaluzz/Documentos/Proyects/genefa-front/node_modules/@angular-devkit/build-angular/src/webpack/jit-polyfills.js */"rZy+");
 
 
 /***/ }),
