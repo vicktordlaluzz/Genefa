@@ -684,7 +684,7 @@ var FacturaComponent = /** @class */ (function () {
         doc.setFontSize(8);
         doc.text("" + this.factura.cliente.rfc.toUpperCase(), 104, 58);
         doc.text("" + this.factura.cliente.nss, 167, 58);
-        doc.text("", 134, 65);
+        doc.text("" + this.factura.cliente.email, 134, 65);
         doc.text(this.factura.corte + ".", 149, 36);
         doc.setFontSize(9);
         doc.text("(" + this.factura.periodo + ")", 81, 86);
